@@ -1,0 +1,1419 @@
+{% extends "base.html" %} {% block head %} {{ super() }}
+<!-- Ion Slider -->
+<link rel="stylesheet" href="static/plugins/ionslider/css/normalize.css" />
+<link rel="stylesheet" href="static/plugins/ionslider/css/ion.rangeSlider.css" />
+<link rel="stylesheet" href="static/plugins/ionslider/css/ion.rangeSlider.skinModern.css" />
+<link href="static/plugins/iCheck/all.css" rel="stylesheet">
+<script src="static/plugins/ionslider/js/ion.rangeSlider.js"></script>
+<script src="static/plugins/iCheck/icheck.js"></script>
+{% endblock %} {% block content %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>单因子测试框架</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="http://119.23.40.188:5000/outline">回到主页</a></li>
+                        <li class="breadcrumb-item active">单因子测试</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between">
+                                <h3 class="card-title">因子筛选</h3>
+                            </div>
+                        </div>
+                        <div id="select_stks">
+                            <div class="card-body" style="width: 600px;height:400px;">
+                                <div class="form-group">
+                                    <label>股票池数量</label>
+                                    <input type="text" id="stock_num_slider" name="example_name" value="" style="width:600px" />
+                                </div>
+                                <div class="form-group">
+                                    <label>时间段选取</label>
+                                    <input type="text" id="time_range_slider" name="time_range_slider" value="" style="width:600px" />
+                                </div>
+                                <!-- 选择数量因子类别 -->
+                                <div class="form-group">
+                                    <label class="">
+                                        <input type="radio" name="factor_type" value="partNum" checked="checked"> 调研人次
+                                    </label>
+                                    <label class="">
+                                        <input type="radio" name="factor_type" value="OrgNum"> 机构数量
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="factor_type" value="QuestionNum"> 问题数
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="factor_type" value="Dummy"> 调研次数
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="factor_type" value="turnover"> 换手
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="factor_type" value="pb"> PB
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="factor_type" value="momentum"> 动量3M
+                                    </label>
+                                </div>
+                                <!-- 选择买卖方人次 -->
+                                <div class="form-group">
+                                    <label class="">
+                                        <input type="radio" name="side_filter" value="both" checked="checked"> 双方
+                                    </label>
+                                    <label class="">
+                                        <input type="radio" name="side_filter" value="buy"> 买方
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="side_filter" value="sell"> 卖方
+                                    </label>
+                                </div>
+                                <!-- 选择调研类别 -->
+                                <div class="form-group">
+                                    <label class="">
+                                        <input type="checkbox" name="type_filter" value="specific" checked="checked"> 仅特定对象调研
+                                    </label>
+                                    <label class="">
+                                        <input type="checkbox" name="type_filter" value="presence" checked="checked"> 需要到场
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="type_filter" value="others"> 电话会议及其他
+                                    </label>
+                                    <span>                                        <button id="generate_factor" type="submit" class="btn btn-info">生成因子</button> </span>
+                                    <p>
+                                        <div class="form-group" style="width: 200px;">
+                                            <label>调研人次截断阈值</label>
+                                            <input type="text" id="partLen_thd" class="form-control" style="width: 50px; display: inline" value="10">
+                                        </div>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between">
+                                <h3 class="card-title">预处理参数设置</h3>
+                            </div>
+                        </div>
+                        <div class="card-body" style="width: 400px;height:400px;">
+                            <div class="col-6">
+                                衰减： 衰减窗口
+                                <input type="text" id="decay_window" class="form-control" value="12">
+                            </div>
+                            <div class="col-6">
+                                半衰期
+                                <input type="text" id="decay_factor" class="form-control" value="2">
+                            </div>
+                            <div class="col-6">
+                                时序标准化窗口
+                                <input type="text" id="time_std_window" class="form-control" value="12">
+                            </div>
+                            <div class="col-6">
+                                公告延迟天数
+                                <input type="text" id="delay_len" class="form-control" value="2">
+                            </div>
+                            <!-- 选择回归方式 -->
+                            <div class="form-group">
+                                <label class="">
+                                    <input type="radio" name="regression_method" value="OLS" checked="checked"> OLS
+                                </label>
+                                <label class="">
+                                    <input type="radio" name="regression_method" value="WLS"> 市值加权WLS
+                                </label>
+                            </div>
+                            <label>
+                                <input type="checkbox" name="pure_factor" value="pure_factor"> 是否进行纯因子分层
+                            </label>
+                            <p>
+                                <button id="process" type="submit" class="btn btn-info">处理因子</button>
+                                <button id="regress" type="submit" class="btn btn-info">开始回归</button>
+                                <button id="backtest" type="submit" class="btn btn-info">分层回测</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between">
+                                <h3 class="card-title">行业分布图</h3>
+                            </div>
+                        </div>
+                        <div class="card-body" style="width: 420px;height:400px;">
+                            <div id="industry_dist" style="width: 400px;height:400px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between">
+                                <h3 class="card-title">中证500行业分布</h3>
+                            </div>
+                        </div>
+                        <div class="card-body" style="width: 420px;height:400px;">
+                            <div id="zz500_dist" style="width: 400px;height:400px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 市值分布、因子间相关度分析、原始因子覆盖度 -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between">
+                                <h3 class="card-title">股票池与因子统计图</h3>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body" style="height:550px;">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    市值分布
+                                    <div id="mktcap_dist" style="width: 550px;height:450px;"></div>
+                                </div>
+                                <div class="col-md-4">
+                                    各类因子间相关度
+                                    <div id="factor_corr" style="width: 550px;height:450px;">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    原始因子覆盖度
+                                    <div id="factor_cover" style="width: 550px;height:450px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 其余参数设置 -->
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between">
+                                <h3 class="card-title">IC序列与T值</h3>
+                            </div>
+                        </div>
+                        <div class="card-body" style="height:500px;">
+                            <div id="IC_series" style="width: 1200px; height:420px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between">
+                                <h3 class="card-title">IC统计分析</h3>
+                            </div>
+                        </div>
+                        <div class="card-body" style="height:500px;">
+                            <div id="IC_summary">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- IC的一些统计 -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between">
+                                <h3 class="card-title">IC敏感分析及其它</h3>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body" style="height:900px;">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    因子覆盖度
+                                    <div id="factor_cover_after" style="width: 400px;height:400px;">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    截面自相关
+                                    <div id="cross_corr" style="width: 400px;height:400px;">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    IC分布
+                                    <div id="IC_dist" style="width: 400px;height:400px;">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    IC衰减
+                                    <div id="IC_decay" style="width: 400px;height:400px;">
+                                    </div>
+                                </div>
+                            </div>
+                            <p></p>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    调研人次截断敏感性分析
+                                    <div id="partLen_rsns" style="width: 400px;height:400px;">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    衰减敏感性分析
+                                    <div id="decayLen_rsns" style="width: 400px;height:400px;">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    公告延迟天数敏感性分析
+                                    <div id="delayLen_rsns" style="width: 400px;height:400px;">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    股票池数量敏感性分析
+                                    <div id="stk_pool_rsns" style="width: 400px;height:400px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 每期因子散点图 -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">每期因子与下期收益率散点图</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body" style="width: 2000px;height:2200px;">
+                            <div id="factor_distribution" style="width: 1800px;height:2000px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 每期持仓图 -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">分层回测分析</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div id="backtest_netvalue" style="width: 1000px;height:500px;">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div id="backtest_summary_draw" style="width: 500px;height:500px;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="backtest_summary" style="width: 1600px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">每期持仓图</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div id="turnover_info" style="width: 800px;height:400px;"> </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div id="mktcap_info" style="width: 800px;height:400px;"> </div>
+                                </div>
+                            </div>
+                            <div id="position_holding"> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">回测敏感性分析</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    调研人次截断敏感性分析
+                                    <div id="partLen_bsns" style="width: 800px;height:400px;">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    衰减敏感性分析
+                                    <div id="decayLen_bsns" style="width: 800px;height:400px;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    公告延迟天数敏感性分析
+                                    <div id="delayLen_bsns" style="width: 800px;height:400px;">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    股票池数量敏感性分析
+                                    <div id="stk_pool_bsns" style="width: 800px;height:400px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script type="text/javascript">
+var industry_dist = echarts.init(document.getElementById('industry_dist'));
+var factor_cover = echarts.init(document.getElementById('factor_cover'));
+var mktcap_dist = echarts.init(document.getElementById('mktcap_dist'));
+var factor_cover_after = echarts.init(document.getElementById('factor_cover_after'));
+var factor_corr = echarts.init(document.getElementById('factor_corr'));
+var zz500_dist = echarts.init(document.getElementById('zz500_dist'));
+var update_draw = function() {
+    var stock_pool = $("#stock_num_slider").val();
+    var date_range = $("#time_range_slider").val();
+    var option_industry;
+    var option_mkt_cap;
+    var option_cover;
+    var option_zz500;
+
+    $.ajax({
+        type: "post",
+        url: "http://119.23.40.188:5000/update_draw",
+        data: { "stock_pool": stock_pool, "time_range": date_range },
+        dataType: "json",
+        success: function(data) {
+            option_industry = {
+                tooltip: {
+                    trigger: 'item',
+                },
+                toolbox: {
+                    feature: {
+                        dataView: {},
+                        saveAsImage: {
+                            pixelRatio: 2
+                        },
+                        restore: {}
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    data: data.industry,
+                    label: { show: true }
+                }]
+            };
+            option_mkt_cap = {
+                tooltip: {
+                    trigger: 'axis',
+                },
+                toolbox: {
+                    feature: {
+                        dataView: {},
+                        saveAsImage: {
+                            pixelRatio: 2
+                        },
+                        restore: {}
+                    }
+                },
+                xAxis: {
+                    axisLabel: {
+                        rotate: 20
+                    },
+                    data: data.mkt_hist_x
+                },
+                yAxis: {},
+                series: [{
+                    type: 'bar',
+                    data: data.mkt_hist_y,
+                    label: { show: true, position: 'top' }
+                }]
+            };
+            option_cover = {
+                tooltip: {
+                    trigger: 'axis',
+                },
+                toolbox: {
+                    feature: {
+                        dataZoom: {
+                            yAxisIndex: 'none'
+                        },
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
+                dataZoom: [{ type: 'inside' }],
+                xAxis: {
+                    type: 'category',
+                    axisLabel: {
+                        rotate: 60
+                    },
+                    data: data.cover_rate_x
+                },
+                yAxis: {},
+                series: [{
+                    type: 'line',
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: 'rgb(255, 158, 68)'
+                            }, {
+                                offset: 1,
+                                color: 'rgb(255, 70, 131)'
+                            }])
+                        }
+                    },
+                    data: data.cover_rate_y
+                }]
+            };
+
+            option_zz500 = {
+                tooltip: {
+                    trigger: 'item',
+                },
+                toolbox: {
+                    feature: {
+                        dataView: {},
+                        saveAsImage: {
+                            pixelRatio: 2
+                        },
+                        restore: {}
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    data: data.zz500_dist,
+                    label: { show: true }
+                }]
+            };
+
+            industry_dist.setOption(option_industry);
+            mktcap_dist.setOption(option_mkt_cap);
+            factor_cover.setOption(option_cover);
+
+            zz500_dist.setOption(option_zz500);
+        }
+    });
+
+    $.ajax({
+        type: "post",
+        url: "http://119.23.40.188:5000/sensitive_anaylysis",
+        dataType: "json",
+        success: function(response) {
+
+            //IC的衰减
+            var IC_decay = echarts.init(document.getElementById('IC_decay'))
+            IC_decay_option = {
+                legend: { show: true },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                xAxis: {
+                    type: 'category',
+                    data: response.IC_decay_x,
+                },
+                yAxis: {},
+                series: response.IC_decay_rsns_series,
+            };
+
+            IC_decay.setOption(IC_decay_option);
+
+
+            //股票选取池
+            var stk_pool_rsns = echarts.init(document.getElementById('stk_pool_rsns'))
+            var stk_pool_bsns = echarts.init(document.getElementById('stk_pool_bsns'))
+            stk_pool_bsns_option = {
+
+                legend: { show: true },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                xAxis: {
+                    type: 'category',
+                    data: response.stk_pool_x,
+                },
+                yAxis: {},
+                series: response.stk_pool_bsns_series,
+            };
+            stk_pool_rsns_option = {
+
+                legend: { show: true },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                xAxis: {
+                    type: 'category',
+                    data: response.stk_pool_x,
+                    axisLabel: { rotate: 45 },
+                },
+                yAxis: {},
+                series: response.stk_pool_rsns_series,
+            };
+            stk_pool_bsns.setOption(stk_pool_bsns_option);
+            stk_pool_rsns.setOption(stk_pool_rsns_option);
+
+            //调研人次截断
+            var partLen_rsns = echarts.init(document.getElementById('partLen_rsns'))
+            var partLen_bsns = echarts.init(document.getElementById('partLen_bsns'))
+            partLen_bsns_option = {
+
+                legend: { show: true },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                xAxis: {
+                    type: 'category',
+                    data: response.partLen_x,
+                },
+                yAxis: {},
+                series: response.partLen_bsns_series,
+            };
+            partLen_rsns_option = {
+
+                legend: { show: true },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                xAxis: {
+                    type: 'category',
+                    data: response.partLen_x,
+                    axisLabel: { rotate: 45 },
+                },
+                yAxis: {},
+                series: response.partLen_rsns_series,
+            };
+            partLen_bsns.setOption(partLen_bsns_option);
+            partLen_rsns.setOption(partLen_rsns_option);
+
+            //衰减
+            var decayLen_rsns = echarts.init(document.getElementById('decayLen_rsns'))
+            var decayLen_bsns = echarts.init(document.getElementById('decayLen_bsns'))
+            decayLen_bsns_option = {
+
+                legend: { show: true },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                xAxis: {
+                    type: 'category',
+                    data: response.decayLen_x,
+                },
+                yAxis: {},
+                series: response.decayLen_bsns_series,
+            };
+            decayLen_rsns_option = {
+
+                legend: { show: true },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                xAxis: {
+                    type: 'category',
+                    data: response.decayLen_x,
+                    axisLabel: { rotate: 45 },
+                },
+                yAxis: {},
+                series: response.decayLen_rsns_series,
+            };
+            decayLen_bsns.setOption(decayLen_bsns_option);
+            decayLen_rsns.setOption(decayLen_rsns_option);
+
+            //公告延迟天数
+            var delayLen_rsns = echarts.init(document.getElementById('delayLen_rsns'))
+            var delayLen_bsns = echarts.init(document.getElementById('delayLen_bsns'))
+            delayLen_bsns_option = {
+
+                legend: { show: true },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                xAxis: {
+                    type: 'category',
+                    data: response.delayLen_x,
+                },
+                yAxis: {},
+                series: response.delayLen_bsns_series,
+            };
+            delayLen_rsns_option = {
+
+                legend: { show: true },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                xAxis: {
+                    type: 'category',
+                    data: response.delayLen_x,
+                    axisLabel: { rotate: 45 },
+                },
+                yAxis: {},
+                series: response.delayLen_rsns_series,
+            };
+            delayLen_bsns.setOption(delayLen_bsns_option);
+            delayLen_rsns.setOption(delayLen_rsns_option);
+
+        }
+
+    })
+
+};
+
+var generate_factor = function() {
+    var stk_pool = $("#stock_num_slider").val();
+    var date_range = $("#time_range_slider").val();
+    var side_filter = $('input[name="side_filter"]:checked').val();
+    var factor_type = $('input[name="factor_type"]:checked').val();
+    var type_filter = [];
+    $('input[name="type_filter"]:checked').each(function() {
+        type_filter.push($(this).val());
+    });
+    var partLen_thd = $('#partLen_thd').val();
+    var post = { stk_pool: stk_pool, side_filter: side_filter, type_filter: type_filter, partLen_thd: partLen_thd, factor_type: factor_type };
+    $.ajax({
+        type: "post",
+        url: "http://119.23.40.188:5000/generate_factor",
+        data: post,
+        dataType: "json",
+        success: function(data) {
+            alert("已成功提取因子数据！")
+        }
+    });
+};
+
+$("#time_range_slider").ionRangeSlider({
+    type: "double",
+    min: 0,
+    max: 65,
+    from: 0,
+    to: 65,
+    values: [
+        '2013/1/31', '2013/2/28', '2013/3/31', '2013/4/30', '2013/5/31', '2013/6/30', '2013/7/31', '2013/8/31', '2013/9/30', '2013/10/31', '2013/11/30', '2013/12/31', '2014/1/31', '2014/2/28', '2014/3/31', '2014/4/30', '2014/5/31', '2014/6/30', '2014/7/31', '2014/8/31', '2014/9/30', '2014/10/31', '2014/11/30', '2014/12/31', '2015/1/31', '2015/2/28', '2015/3/31', '2015/4/30', '2015/5/31', '2015/6/30', '2015/7/31', '2015/8/31', '2015/9/30', '2015/10/31', '2015/11/30', '2015/12/31', '2016/1/31', '2016/2/29', '2016/3/31', '2016/4/30', '2016/5/31', '2016/6/30', '2016/7/31', '2016/8/31', '2016/9/30', '2016/10/31', '2016/11/30', '2016/12/31', '2017/1/31', '2017/2/28', '2017/3/31', '2017/4/30', '2017/5/31', '2017/6/30', '2017/7/31', '2017/8/31', '2017/9/30', '2017/10/31', '2017/11/30', '2017/12/31', '2018/1/31', '2018/2/28', '2018/3/31', '2018/4/30', '2018/5/31', '2018/6/30',
+    ],
+    onFinish: function(params) { update_draw() }
+});
+
+$("#stock_num_slider").ionRangeSlider({
+    min: 0,
+    max: 1800,
+    from: 600,
+    step: 10,
+    onFinish: function(params) { update_draw() }
+});
+//iCheck for checkbox and radio inputs
+$('input[type="checkbox"], input[type="radio"]').iCheck({
+    checkboxClass: 'icheckbox_minimal-blue',
+    radioClass: 'iradio_square-blue'
+})
+$("#generate_factor").on("click", function() {
+    generate_factor();
+    update_draw();
+});
+
+$("#process").on("click", function(argument) {
+    var post = {
+        decay_window: $('#decay_window').val(),
+        decay_factor: $('#decay_factor').val(),
+        time_std_window: $('#time_std_window').val(),
+        delay_len: $('#delay_len').val(),
+        factor_type: $('input[name="factor_type"]:checked').val(),
+        side_filter: $('input[name="side_filter"]:checked').val(),
+    };
+
+    var cross_corr = echarts.init(document.getElementById('cross_corr'));
+    var factor_cover_after = echarts.init(document.getElementById('factor_cover_after'));
+    var factor_corr = echarts.init(document.getElementById('factor_corr'));
+    cross_corr.showLoading();
+    factor_cover_after.showLoading();
+    factor_corr.showLoading();
+
+    //处理因子数据
+    $.ajax({
+        type: "post",
+        url: "http://119.23.40.188:5000/process_factor",
+        data: post,
+        dataType: "json",
+        success: function(data) {
+            cross_corr.hideLoading();
+            factor_cover_after.hideLoading();
+            factor_corr.hideLoading();
+            option_cross_corr = {
+                tooltip: {
+                    trigger: 'axis',
+                },
+                toolbox: {
+                    feature: {
+                        dataZoom: {
+                            yAxisIndex: 'none'
+                        },
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
+                dataZoom: [{ type: 'inside' }],
+                xAxis: {
+                    type: 'category',
+                    axisLabel: {
+                        rotate: 60
+                    },
+                    data: data.dates
+                },
+                yAxis: {},
+                series: [{
+                    type: 'line',
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: 'rgb(255, 158, 68)'
+                            }, {
+                                offset: 1,
+                                color: 'rgb(255, 70, 131)'
+                            }])
+                        }
+                    },
+                    data: data.cross_corr
+                }]
+            };
+            cross_corr.setOption(option_cross_corr);
+            option_corr = {
+                tooltip: {
+                    trigger: 'axis',
+                },
+                toolbox: {
+                    feature: {
+                        dataZoom: {
+                            yAxisIndex: 'none'
+                        },
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
+                legend: { show: true },
+                dataZoom: [{ type: 'inside' }],
+                xAxis: {
+                    type: 'category',
+                    axisLabel: {
+                        rotate: 60
+                    },
+                    data: data.corr_series_x
+                },
+                yAxis: {},
+                series: data.corr_series
+
+            };
+            // console.log(data.corr_series);
+            factor_corr.setOption(option_corr);
+            option_factor_cover_after = {
+                tooltip: {
+                    trigger: 'axis',
+                },
+                toolbox: {
+                    feature: {
+                        dataZoom: {
+                            yAxisIndex: 'none'
+                        },
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
+                dataZoom: [{ type: 'inside' }],
+                xAxis: {
+                    type: 'category',
+                    axisLabel: {
+                        rotate: 60
+                    },
+                    data: data.dates
+                },
+                yAxis: {},
+                series: [{
+                    type: 'line',
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: 'rgb(255, 158, 68)'
+                            }, {
+                                offset: 1,
+                                color: 'rgb(255, 70, 131)'
+                            }])
+                        }
+                    },
+                    data: data.factor_cover_after
+                }]
+            };
+            factor_cover_after.setOption(option_factor_cover_after);
+
+
+        }
+    });
+    update_draw();
+});
+
+$("#regress").on("click", function(argument) {
+
+    var IC_series = echarts.init(document.getElementById('IC_series'));
+    var IC_dist = echarts.init(document.getElementById('IC_dist'));
+    IC_series.showLoading();
+    IC_dist.showLoading();
+    // var IC_series = echarts.init(document.getElementById('cross_corr'));
+    //================开始回归
+    $.ajax({
+        type: "post",
+        url: "http://119.23.40.188:5000/regress",
+        dataType: "json",
+        success: function(data) {
+            // load table
+            $('#IC_summary').empty();
+            $('#IC_summary').append(data.IC_summary_table);
+
+            $('#IC_summary>.dataframe').DataTable({
+                paging: false,
+                searching: false,
+                info: false,
+                ordering: false,
+                columnDefs: [{
+                    targets: [1, 3],
+                    render: function(data, type, row) {
+                        row.out_qty_x = Number(data).toFixed(3);
+                        return row.out_qty_x;
+                    }
+                }],
+            });
+            // alert("fuck");
+
+            IC_series.hideLoading();
+            IC_dist.hideLoading();
+
+            option_IC_series = {
+                tooltip: {
+                    trigger: 'axis',
+                },
+                legend: { show: true },
+                dataZoom: [{ type: 'inside' }],
+                toolbox: {
+                    feature: {
+                        dataView: {},
+                        saveAsImage: {
+                            pixelRatio: 2
+                        },
+                        restore: {}
+                    }
+                },
+                xAxis: {
+                    axisLabel: {
+                        rotate: 60
+                    },
+                    data: data.dates
+                },
+                yAxis: [{ splitLine: { show: false } }, { splitLine: { show: true } }],
+                series: [{
+                    name: 'T-Value',
+                    type: 'bar',
+                    data: data.T_values,
+
+
+                }, {
+                    name: 'RankIC',
+                    type: 'line',
+                    data: data.Rank_IC,
+                    yAxisIndex: 1
+
+                }]
+            };
+            IC_series.setOption(option_IC_series);
+
+            option_IC_dist = {
+                tooltip: {
+                    trigger: 'axis',
+                },
+                toolbox: {
+                    feature: {
+                        dataView: {},
+                        saveAsImage: {
+                            pixelRatio: 2
+                        },
+                        restore: {}
+                    }
+                },
+                xAxis: {
+                    axisLabel: {
+                        rotate: 60
+                    },
+                    data: data.IC_hist_x,
+                },
+                yAxis: {},
+                series: [{
+                    type: 'bar',
+                    data: data.IC_hist_y
+                }]
+            };
+            IC_dist.setOption(option_IC_dist);
+
+
+
+            ////画每期的scatter图
+
+            var factor_distribution = echarts.init(document.getElementById('factor_distribution'));
+            var grids = [];
+            var xAxes = [];
+            var yAxes = [];
+            var series = [];
+            var titles = [];
+            var count = 0;
+            var scatter_titles = data.scatter_titles;
+            var factor_scatter_data = data.factor_scatter_data;
+            // var titles = data.titles;
+            echarts.util.each(factor_scatter_data, function(data, idx) {
+                grids.push({
+                    show: true,
+                    borderWidth: 0,
+                    backgroundColor: '#fff',
+                    shadowColor: 'rgba(0, 0, 0, 0.3)',
+                    shadowBlur: 2
+                });
+                xAxes.push({
+                    type: 'value',
+                    show: true,
+                    min: -3,
+                    max: 4,
+                    gridIndex: count,
+                    axisTick: { show: false },
+                    axisLabel: { show: false },
+                    splitLine: { show: false }
+                });
+                yAxes.push({
+                    type: 'value',
+                    show: true,
+                    min: -0.4,
+                    max: 0.6,
+                    gridIndex: count,
+                    axisTick: { show: false },
+                    axisLabel: { show: false },
+                    splitLine: { show: false }
+                });
+                series.push({
+                    name: scatter_titles[idx],
+                    type: 'scatter',
+                    xAxisIndex: count,
+                    yAxisIndex: count,
+                    data: data,
+                    showSymbol: false,
+                    symbolSize: 3,
+                    // animationEasing: name,
+                    // animationDuration: 1000
+                });
+                titles.push({
+                    textAlign: 'center',
+                    text: scatter_titles[idx],
+                    textStyle: {
+                        fontSize: 18,
+                        fontWeight: 'normal'
+                    }
+                });
+                count++;
+            });
+
+            var rowNumber = 6;
+            var colNumber = Math.ceil(count / rowNumber);
+            echarts.util.each(grids, function(grid, idx) {
+                grid.left = ((idx % rowNumber) / rowNumber * 100 + 1) + '%';
+                grid.top = (Math.floor(idx / rowNumber) / colNumber * 100 + 1) + '%';
+                grid.width = (1 / rowNumber * 100 - 1) + '%';
+                grid.height = (1 / colNumber * 100 - 1) + '%';
+
+                titles[idx].left = parseFloat(grid.left) + parseFloat(grid.width) / 2 + '%';
+                titles[idx].top = parseFloat(grid.top) + '%';
+            });
+
+            option = {
+                title: titles.concat([{
+                    text: '',
+                    top: 'bottom',
+                    left: 'center'
+                }]),
+                grid: grids,
+                xAxis: xAxes,
+                yAxis: yAxes,
+                series: series
+            };
+            factor_distribution.setOption(option);
+        }
+    });
+})
+
+$("#backtest").on("click", function(argument) {
+
+    var backtest_netvalue = echarts.init(document.getElementById('backtest_netvalue'));
+    var backtest_summary_draw = echarts.init(document.getElementById('backtest_summary_draw'));
+    var turnover_info = echarts.init(document.getElementById('turnover_info'));
+    var mktcap_info = echarts.init(document.getElementById('mktcap_info'));
+    backtest_netvalue.showLoading();
+    //================开始回测
+    $.ajax({
+        type: "post",
+        url: "http://119.23.40.188:5000/backtest",
+        // data: post,
+        dataType: "json",
+        success: function(response) {
+            //画净值图
+            backtest_netvalue.hideLoading();
+            var option = {
+                title: { text: '分层回测净值' },
+                tooltip: {},
+                dataZoom: [{
+                    type: 'inside',
+                    realtime: true,
+
+                }],
+                legend: { show: true, selected: { 'baseline': false, 'index': false, 'zz1000': false, 'szzz': false, 'draw_down': false } },
+                visualMap: {
+                    show: false,
+                    type: 'continuous',
+                    seriesIndex: 0,
+                    min: 0,
+                    max: 5
+                },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                toolbox: {
+                    feature: {
+                        dataView: {},
+                        saveAsImage: {
+                            pixelRatio: 2
+                        },
+                        restore: {}
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    data: response.dates,
+                    axisLabel: {
+                        rotate: 60
+                    }
+                },
+                yAxis: [{
+                        name: "组合净值",
+                        splitLine: { show: false }
+                    },
+                    {
+                        name: "最大回撤",
+                        inverse: true,
+                        splitLine: { show: false }
+                    }
+                ],
+                series: response.series,
+            };
+            backtest_netvalue.setOption(option);
+
+            //画分组的收益
+            var backtest_summary_draw_option = {
+                title: { text: '各组合回测表现' },
+                tooltip: {},
+                legend: { show: true },
+
+                tooltip: {
+                    trigger: 'axis',
+                },
+                toolbox: {
+                    feature: {
+                        dataView: {},
+                        saveAsImage: {
+                            pixelRatio: 2
+                        },
+                        restore: {}
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    data: response.backtest_draw,
+                    axisLabel: {
+                        rotate: 0
+                    }
+                },
+                yAxis: [{ splitLine: { show: false } }],
+                series: response.backtest_draw_series,
+            };
+            backtest_summary_draw.setOption(backtest_summary_draw_option);
+
+            //初始化表格
+            $('#backtest_summary').empty();
+            $('#backtest_summary').append(response.backtest_summary);
+
+            $('#backtest_summary>.dataframe').DataTable({
+                paging: false,
+                searching: false,
+                info: false,
+                ordering: false,
+            });
+
+
+            //画每个组合的换手率
+            var turnover_option = {
+                title: { text: '各组合换手率' },
+                tooltip: {},
+                dataZoom: [{
+                    type: 'inside',
+                    realtime: true,
+
+                }],
+                legend: { show: true },
+
+                tooltip: {
+                    trigger: 'axis',
+                },
+                toolbox: {
+                    feature: {
+                        dataView: {},
+                        saveAsImage: {
+                            pixelRatio: 2
+                        },
+                        restore: {}
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    data: response.dates,
+                    axisLabel: {
+                        rotate: 60
+                    }
+                },
+                yAxis: [{
+                    name: "换手率"
+                }, ],
+                series: response.turnover_series,
+            };
+            turnover_info.setOption(turnover_option);
+
+            var mktcap_info_option = {
+                title: { text: '市值暴露分析' },
+                tooltip: {},
+                dataZoom: [{
+                    type: 'inside',
+                    realtime: true,
+
+                }],
+                legend: { show: true },
+
+                tooltip: {
+                    trigger: 'axis',
+                },
+                toolbox: {
+                    feature: {
+                        dataView: {},
+                        saveAsImage: {
+                            pixelRatio: 2
+                        },
+                        restore: {}
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    data: response.dates,
+                    axisLabel: {
+                        rotate: 60
+                    }
+                },
+                yAxis: [{
+                    name: "市值中位数"
+                }, { name: "比率" }],
+                series: response.mktcap_series,
+            };
+            mktcap_info.setOption(mktcap_info_option);
+            //开始画持仓图
+            //建立每一期的mychart元素
+            $('#position_holding').empty();
+            var charts = [];
+            var options = [];
+            echarts.util.each(response.positions_info, function(position, idx) {
+                // alert("ahah");
+                // console.log(position.day);
+                $('#position_holding').append("<div id=\"" + position.day + "\" style=\"width: 1600px;height:400px;\"></div>")
+                var chart = echarts.init(document.getElementById(position.day))
+                var grids = [];
+                var xAxes = [];
+                var yAxes = [];
+                var series = [];
+                var titles = [];
+                var dataZooms = [];
+
+                var count = 0;
+                //每期画五个组合
+                echarts.util.each(position.pos, function(port, port_idx) {
+                    grids.push({
+                        show: true,
+                        borderWidth: 0,
+                        backgroundColor: '#fff',
+                        shadowColor: 'rgba(0, 0, 0, 0.3)',
+                        shadowBlur: 2,
+
+                    });
+                    xAxes.push({
+                        type: 'category',
+                        show: true,
+                        gridIndex: count,
+                        data: port.sec_name,
+                        axisTick: { show: true },
+                        axisLabel: { show: true, rotate: 90 },
+                        splitLine: { show: false }
+                    });
+                    yAxes.push({
+                        type: 'value',
+                        show: true,
+                        min: -40,
+                        max: 40,
+                        gridIndex: count,
+                        axisTick: { show: true },
+                        axisLabel: { show: true },
+                        splitLine: { show: false }
+                    });
+                    dataZooms.push({
+                        type: 'inside',
+                        xAxisIndex: [count],
+                    });
+                    series.push({
+                        // name: scatter_titles[idx],
+                        type: 'bar',
+                        xAxisIndex: count,
+                        yAxisIndex: count,
+                        data: port.next_ret,
+                        showSymbol: false,
+                        symbolSize: 3,
+                        markPoint: {}
+                        // animationEasing: name,
+                        // animationDuration: 1000
+                    });
+                    titles.push({
+                        textAlign: 'center',
+                        text: position.day + '_Port' + port_idx,
+                        textStyle: {
+                            fontSize: 15,
+                            fontWeight: 'normal'
+                        }
+                    });
+                    count++;
+                });
+
+                var rowNumber = position.pos.length;
+                echarts.util.each(grids, function(grid, idx) {
+                    grid.left = (idx * 100 / rowNumber + 2) + '%';
+                    grid.width = (1 / rowNumber * 100 - 1) + '%';
+                    titles[idx].left = parseFloat(grid.left) + parseFloat(grid.width) / 2 + '%';
+                    titles[idx].top = parseFloat(grid.top) + '%';
+                })
+
+                var option = {
+                    title: titles,
+                    grid: grids,
+                    xAxis: xAxes,
+                    yAxis: yAxes,
+                    series: series,
+                    dataZoom: dataZooms,
+
+                    tooltip: { show: true, trigger: 'axis' }
+
+                };
+                options.push(option);
+
+                chart.setOption(option);
+                charts.push(chart);
+            });
+
+            echarts.util.each(charts, function(chart, idx) {
+                chart.on('click', function(params) {
+                    // body...
+                    var stock = params.name;
+                    for (var i = 0; i < charts.length; i++) {
+
+                        for (var j = 0; j < options[i].xAxis.length; j++) {
+                            options[i].series[j].markPoint = {};
+                            var found = options[i].xAxis[j].data.indexOf(stock);
+                            if (found !== -1) {
+                                // console.log(j);
+
+                                options[i].series[j].markPoint = {
+                                    label: { show: true, formatter: '{b}' },
+                                    data: [{ name: stock, coord: [stock, 0] }]
+                                };
+
+
+
+                                // tmpChart.dispatchAction({
+                                //     type:'showTip',
+                                //     seriesIndex:j,
+                                //     dataIndex: found
+                                // });
+
+                            }
+                        }
+                        charts[i].setOption(options[i]);
+                    };
+                })
+            })
+
+
+        }
+    });
+});
+
+update_draw();
+//将敏感性分析的图画出来
+</script>
+{% endblock %}

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html>
+
+
+
+<head>
+
+    {%block head %}
+
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>景顺长城暑期答辩</title>
+
+    <!-- Tell the browser to be responsive to screen width -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet" href="static/plugins/font-awesome/css/font-awesome.min.css">
+
+    <!-- Ionicons -->
+
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+    <!-- Theme style -->
+
+    <link rel="stylesheet" href="static/dist/css/adminlte.min.css">
+
+    <!-- iCheck -->
+
+    <link rel="stylesheet" href="static/plugins/iCheck/flat/blue.css">
+
+    <!-- Morris chart -->
+
+    <link rel="stylesheet" href="static/plugins/morris/morris.css">
+
+    <!-- jvectormap -->
+
+    <link rel="stylesheet" href="static/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+
+    <!-- Date Picker -->
+
+    <link rel="stylesheet" href="static/plugins/datepicker/datepicker3.css">
+
+    <!-- Daterange picker -->
+
+    <link rel="stylesheet" href="static/plugins/daterangepicker/daterangepicker-bs3.css">
+
+    <!-- bootstrap wysihtml5 - text editor -->
+
+    <link rel="stylesheet" href="static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+    <!-- Google Font: Source Sans Pro -->
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <!-- datatables -->
+
+    <link rel="stylesheet" type="text/css" href="static/plugins/mydatatables/css/jquery.dataTables.css">
+
+    <!-- jQuery -->
+
+    <script src="static/plugins/jquery/jquery.js"></script>
+
+    <script src="static/plugins/echarts.js"></script>
+
+    <script src="static/plugins/echarts-wordcloud.js"></script>
+
+    {% endblock %}
+
+</head>
+
+
+
+<body class="hold-transition sidebar-mini">
+
+    <div class="wrapper">
+
+        <!-- Navbar -->
+
+        <!-- /.navbar -->
+
+        {% block navbar %}
+
+        <!-- Main Sidebar Container -->
+
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+
+            <!-- Brand Logo -->
+
+            <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+
+            <!-- Sidebar -->
+
+            <div class="sidebar">
+
+                <!-- Sidebar user (optional) -->
+
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+
+                    <div class="image">
+
+                        <img src="static/dist/img/Kane.jpeg" class="img-circle elevation-2" alt="User Image">
+
+                    </div>
+
+                    <div class="info">
+
+                        <a href="#" class="d-block">Kane Fu</a>
+
+                    </div>
+
+                </div>
+
+                <!-- Sidebar Menu -->
+
+                <nav class="mt-2">
+
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+
+
+                        <li class="nav-header">研究框架</li>
+
+                        <li class="nav-item">
+
+                            <a href="http://119.23.40.188:5000/original_docs" class="nav-link">
+
+              <i class="nav-icon fa fa-calendar"></i>
+
+              <p>
+
+                显示原始数据
+
+              </p>
+
+            </a>
+
+                        </li>
+
+                        <li class="nav-item">
+
+                            <a href="http://119.23.40.188:5000/db_type_summary" class="nav-link">
+
+              <i class="nav-icon fa fa-edit"></i>
+
+              <p>
+
+                数据库类型统计
+
+              </p>
+
+            </a>
+
+                        </li>
+
+                        <li class="nav-item">
+
+                            <a href="http://119.23.40.188:5000/single_factor_backtest" class="nav-link">
+
+              <i class="nav-icon fa fa-pie-chart"></i>
+
+              <p>
+
+                单因子测试框架
+
+              </p>
+
+            </a>
+
+                        </li>
+
+                        <li class="nav-item">
+
+                            <a href=" http://119.23.40.188:5000/sent_demo"  class="nav-link">
+
+              <i class="nav-icon fa fa-th"></i>
+
+              <p>
+
+                情感打分示例
+
+              </p>
+
+            </a>
+
+                        </li>
+
+                    </ul>
+
+                </nav>
+
+                <!-- /.sidebar-menu -->
+
+            </div>
+
+            <!-- /.sidebar -->
+
+        </aside>
+
+        {% endblock %} {% block content %} {% endblock %}
+
+        <!-- Control Sidebar -->
+
+        <aside class="control-sidebar control-sidebar-dark">
+
+            <!-- Control sidebar content goes here -->
+
+        </aside>
+
+        <!-- /.control-sidebar -->
+
+    </div>
+
+    <!-- ./wrapper -->
+
+    {% block scripts %}
+
+    <!-- datatables -->
+
+    <script src="static/plugins/mydatatables/js/jquery.dataTables.min.js"></script>
+
+    <!-- echarts -->
+
+    <!-- <script src="static/plugins/echarts.min.js"></script> -->
+
+    <!-- Bootstrap 4 -->
+
+    <script src="static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Slimscroll -->
+
+    <script src="static/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+
+    <!-- FastClick -->
+
+    <script src="static/plugins/fastclick/fastclick.js"></script>
+
+    <!-- AdminLTE App -->
+
+    <script src="static/dist/js/adminlte.min.js"></script>
+
+    <!-- AdminLTE for demo purposes -->
+
+    <script src="static/dist/js/demo.js"></script>
+
+    <!-- iCheck -->
+
+    <script src="static/plugins/iCheck/icheck.min.js"></script>
+
+    <!-- datatables -->
+
+    <script src="static/plugins/datatables/jquery.dataTables.js"></script>
+
+    <!-- Bootstrap WYSIHTML5 -->
+
+    <script src="static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+
+    {% endblock %}
+
+    <!-- Page Script -->
+
+    <script>
+
+    $(function() {
+
+        //Add text editor
+
+        //$('#compose-textarea').wysihtml5()
+
+    })
+
+    </script>
+
+</body>
+
+
+
+</html>

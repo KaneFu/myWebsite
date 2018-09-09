@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>数据库分类别统计</h1>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- 第一行是图 -->
+                    <div class="col-md-12">
+                        <div class="card card-primary card-outline">
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                {{ mychart|safe }}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+{% endblock %}

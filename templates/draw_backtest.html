@@ -1,0 +1,197 @@
+{% extends "base.html" %} {% block head %} {{ super() }}
+<!-- Ion Slider -->
+<link rel="stylesheet" href="static/plugins/ionslider/ion.rangeSlider.css">
+<!-- ion slider Nice -->
+<link rel="stylesheet" href="static/plugins/ionslider/ion.rangeSlider.skinHTML5.css">
+<script src="static/plugins/ionslider/ion.rangeSlider.min.js"></script>
+{% endblock %} {% block content %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>回测净值曲线与年度表现</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="http://119.23.40.188:5000/outline">回到主页</a></li>
+                        <li class="breadcrumb-item active">净值曲线</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card card-primary card-outline">
+                    <div class="card-body">
+                        <div class=".col-md-8">
+                            <div id="backtestChart" style="width: 1000px;height:500px;"></div>
+                            <input type="text" id="slider" name="example_name" value="" />
+                            <div class="form-group" style="width: 300px;">
+                                <label>开始时间</label>
+                                <input type="text" id="start_date" class="form-control" placeholder="Enter ..." disabled="">
+                            </div>
+                            <div class="form-group" style="width: 300px;">
+                                <label>结束时间</label>
+                                <input type="text" id="end_date" class="form-control" placeholder="Enter ..." disabled="">
+                            </div>
+                            <script type="text/javascript">
+                            var myChart = echarts.init(document.getElementById('backtestChart'));
+                            var getOption = function(data) {
+                                // body...
+                                var option;
+                                option = {
+                                    title: { text: 'Line Chart' },
+                                    tooltip: {},
+                                    legend: {
+                                        show: true,
+                                    },
+                                    tooltip: {
+                                        trigger: 'axis',
+                                    },
+                                    toolbox: {
+                                        feature: {
+                                            dataView: {},
+                                            saveAsImage: {
+                                                pixelRatio: 2
+                                            },
+                                            restore: {}
+                                        }
+                                    },
+                                    xAxis: {
+                                        type: 'category',
+                                        data: data['xAxis'],
+                                        axisLabel: {
+                                            rotate: 60
+                                        }
+                                    },
+                                    yAxis: {},
+                                    series: data['series'],
+                                };
+                                return option;
+                            };
+
+                            $.ajax({
+                                type: "post",
+                                url: "http://119.23.40.188:5000/query0_100",
+                                dataType: "json",
+                                success: function(data) {
+                                    // console.log(data)
+                                    option = getOption(data);
+                                    myChart.setOption(option);
+                                    $('#start_date').attr('placeholder', data.start_date);
+                                    $('#end_date').attr('placeholder', data.end_date);
+                                    $('#' + 'example').DataTable({
+                                        data: data.table_dataset,
+                                        columns: data.table_columns,
+                                        columnDefs: [{
+                                            targets: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+                                            render: function(data, type, row) {
+                                                row.out_qty_x = Number(data).toFixed(4);
+                                                return row.out_qty_x;
+                                            }
+                                        }],
+                                        paging: false,
+                                        searching: false,
+                                        info: false,
+                                        bAutoWidth: false
+                                    });
+                                    for (var i = 0; i < data.year_summarys.length; i++) {
+                                        $('#' + data.year_summarys[i].year).DataTable({
+                                            data: data.year_summarys[i].table_dataset,
+                                            columns: data.year_summarys[i].table_columns,
+                                            columnDefs: [{
+                                                targets: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+                                                render: function(data, type, row) {
+                                                    row.out_qty_x = Number(data).toFixed(4);
+                                                    return row.out_qty_x;
+                                                }
+                                            }],
+                                            paging: false,
+                                            searching: false,
+                                            info: false,
+                                            bAutoWidth: false
+                                        })
+                                    };
+
+
+                                    $("#slider").ionRangeSlider({
+                                        type: "double",
+                                        grid: true,
+                                        min: 0,
+                                        max: 100,
+                                        from: 0,
+                                        to: 100,
+                                        values: data['dates'],
+                                        onChange: function(params) {
+                                            var date_len = data.dates.length;
+
+                                            $('#start_date').attr('placeholder', data.dates[Math.floor(date_len * params.fromNumber / 100)]);
+                                            $('#end_date').attr('placeholder', data.dates[Math.floor(date_len * params.toNumber / 100)]);
+                                        },
+                                        onFinish: function(params) {
+                                            var start = params.fromNumber.toString();
+                                            var end = params.toNumber.toString();
+                                            $.ajax({
+                                                type: "post",
+                                                url: "http://119.23.40.188:5000/query" + start + "_" + end,
+                                                dataType: "json",
+                                                success: function(data) {
+                                                    option = getOption(data);
+                                                    myChart.setOption(option);
+
+                                                    table = $('#example').DataTable({ retrieve: true });
+                                                    table.destroy();
+                                                    $('#example').DataTable({
+                                                        data: data.table_dataset,
+                                                        columns: data.table_columns,
+                                                        columnDefs: [{
+                                                            targets: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+                                                            render: function(data, type, row) {
+                                                                row.out_qty_x = Number(data).toFixed(4);
+                                                                return row.out_qty_x;
+                                                            }
+                                                        }],
+                                                        paging: false,
+                                                        searching: false,
+                                                        info: false,
+                                                         bAutoWidth: false
+                                                    });
+                                                }
+                                            });
+
+                                        }
+                                        // values: data.dates
+                                    });
+
+                                }
+                            });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-primary card-outline">
+                    <div class="card-body">
+                        <div class=".col-md-4">
+                            <table id="example" class="display" style="width: 200px;height:200px;"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 每年的情况 -->
+            <div class="row">
+                {% for year in years %}
+                <div class=".col-md-4">
+                    <table id={{ year }} class="display" style="width: 200px;height:200px;"></table>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
