@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="http://119.23.40.188:5000/outline">回到主页</a></li>
+                        <li class="breadcrumb-item"><a href="http://{{ipv4}}/outline">回到主页</a></li>
                         <li class="breadcrumb-item active">情感分析demo</li>
                     </ol>
                 </div>
@@ -39,7 +39,7 @@
                                     $("#button").on("click", function() {
                                         $.ajax({
                                             type: "post",
-                                            url: "http://119.23.40.188:5000/sent_demo_query",
+                                            url: "http://{{ipv4}}/sent_demo_query",
                                             data: { input: $('#input').val() },
                                             dataType: "json",
                                             success: function(data) {

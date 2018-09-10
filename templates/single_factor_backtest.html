@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="http://119.23.40.188:5000/outline">回到主页</a></li>
+                        <li class="breadcrumb-item"><a href="http://{{ipv4}}/outline">回到主页</a></li>
                         <li class="breadcrumb-item active">单因子测试</li>
                     </ol>
                 </div>
@@ -437,7 +437,7 @@ var update_draw = function() {
 
     $.ajax({
         type: "post",
-        url: "http://119.23.40.188:5000/update_draw",
+        url: "http://{{ipv4}}/update_draw",
         data: { "stock_pool": stock_pool, "time_range": date_range },
         dataType: "json",
         success: function(data) {
@@ -555,7 +555,7 @@ var update_draw = function() {
 
     $.ajax({
         type: "post",
-        url: "http://119.23.40.188:5000/sensitive_anaylysis",
+        url: "http://{{ipv4}}/sensitive_anaylysis",
         dataType: "json",
         success: function(response) {
 
@@ -728,7 +728,7 @@ var generate_factor = function() {
     var post = { stk_pool: stk_pool, side_filter: side_filter, type_filter: type_filter, partLen_thd: partLen_thd, factor_type: factor_type };
     $.ajax({
         type: "post",
-        url: "http://119.23.40.188:5000/generate_factor",
+        url: "http://{{ipv4}}/generate_factor",
         data: post,
         dataType: "json",
         success: function(data) {
@@ -786,7 +786,7 @@ $("#process").on("click", function(argument) {
     //处理因子数据
     $.ajax({
         type: "post",
-        url: "http://119.23.40.188:5000/process_factor",
+        url: "http://{{ipv4}}/process_factor",
         data: post,
         dataType: "json",
         success: function(data) {
@@ -916,7 +916,7 @@ $("#regress").on("click", function(argument) {
     //================开始回归
     $.ajax({
         type: "post",
-        url: "http://119.23.40.188:5000/regress",
+        url: "http://{{ipv4}}/regress",
         dataType: "json",
         success: function(data) {
             // load table
@@ -1108,7 +1108,7 @@ $("#backtest").on("click", function(argument) {
     //================开始回测
     $.ajax({
         type: "post",
-        url: "http://119.23.40.188:5000/backtest",
+        url: "http://{{ipv4}}/backtest",
         // data: post,
         dataType: "json",
         success: function(response) {
