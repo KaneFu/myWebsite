@@ -1,226 +1,132 @@
-{% extends "base.html" %} 
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper" style="min-height: 886px;">
+<div class="content-wrapper" style="min-height: 904px;">
     <!-- Content Header (Page header) -->
-    <div class="content-header">
+    <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">展示大纲</h1>
+                    <h1>项目介绍</h1>
                 </div>
-                <!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="http://127.0.0.1:5000/outline">主页</a></li>
-                        <li class="breadcrumb-item active">展示大纲</li>
+                        <li class="breadcrumb-item"><a href="http://http://120.79.242.98:5000/outline">主页</a></li>
+                        <li class="breadcrumb-item active">Introduction</li>
                     </ol>
                 </div>
-                <!-- /.col -->
             </div>
-            <!-- /.row -->
         </div>
         <!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
+    </section>
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <!-- Small boxes (Stat box) -->
             <div class="row">
-                <div class="col-lg-4 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>150</h3>
-                            <p>New Orders</p>
-                            <ul>
-                                <li>Lorem ipsum dolor sit amet</li>
-                                <li>Consectetur adipiscing elit</li>
-                                <li>Integer molestie lorem at massa</li>
-                                <li>Facilisis in pretium nisl aliquet</li>
-                                <li>Nulla volutpat aliquam velit
-                                    <ul>
-                                        <li>Phasellus iaculis neque</li>
-                                        <li>Purus sodales ultricies</li>
-                                        <li>Vestibulum laoreet porttitor sem</li>
-                                        <li>Ac tristique libero volutpat at</li>
-                                    </ul>
-                                </li>
-                                <li>Faucibus porta lacus fringilla vel</li>
-                                <li>Aenean sit amet erat nunc</li>
-                                <li>Eget porttitor lorem</li>
-                            </ul>
-                            <p></p>
+                <div class="col-md-3">
+                    <!-- Profile Image -->
+                    <div class="card card-primary card-outline">
+                        <div class="card-body box-profile">
+                            <div class="text-center">
+                                <img class="profile-user-img img-fluid img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture">
+                            </div>
+                            <h3 class="profile-username text-center">付亮</h3>
+                            <p class="text-muted text-center">Kane Fu，ful.17@sem.tsinghua.edu.cn</p>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-bag"></i>
-                        </div>
-                        <a href="file:///Users/BurNingS/Desktop/%E5%88%AB%E4%BA%BA%E7%9A%84%E6%A8%A1%E6%9D%BF/cpts_992_bmf.0-alpha%20copy/index.html#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <!-- /.card-body -->
                     </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-4 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3>53<sup style="font-size: 20px">%</sup></h3>
-                            <p>Bounce Rate</p>
-                            <ul>
-                                <li>Lorem ipsum dolor sit amet</li>
-                                <li>Consectetur adipiscing elit</li>
-                                <li>Integer molestie lorem at massa</li>
-                                <li>Facilisis in pretium nisl aliquet</li>
-                                <li>Nulla volutpat aliquam velit
-                                    <ul>
-                                        <li>Phasellus iaculis neque</li>
-                                        <li>Purus sodales ultricies</li>
-                                        <li>Vestibulum laoreet porttitor sem</li>
-                                        <li>Ac tristique libero volutpat at</li>
-                                    </ul>
-                                </li>
-                                <li>Faucibus porta lacus fringilla vel</li>
-                                <li>Aenean sit amet erat nunc</li>
-                                <li>Eget porttitor lorem</li>
-                            </ul>
+                    <!-- /.card -->
+                    <!-- About Me Box -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">About Me</h3>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <strong><i class="fa fa-book mr-1"></i> Education</strong>
+                            <p class="text-muted">清华大学物理系基科班 理学学士 清华大学经管学院 金融硕士</p>
+                            <hr>
+                            <strong><i class="fa fa-map-marker mr-1"></i> Location</strong>
+                            <p class="text-muted">Beijing, Shenzhen</p>
+                            <hr>
+                            <strong><i class="fa fa-pencil mr-1"></i> Skills</strong>
+                            <p class="text-muted">
+                                <span class="tag tag-danger">Python, Javascript, simple Web Data Visualization, C++</span>
+                            </p>
+                            <hr>
+                            <strong><i class="fa fa-file-text-o mr-1"></i> Notes</strong>
+                            <p class="text-muted">本网站是暑期实习时独立完成的项目,框架为Python+Flask+MongoDB+ jQuery+Jinja2, 部署于自购低配置阿里云服务器
+                            </p>
                         </div>
-                        <a href="file:///Users/BurNingS/Desktop/%E5%88%AB%E4%BA%BA%E7%9A%84%E6%A8%A1%E6%9D%BF/cpts_992_bmf.0-alpha%20copy/index.html#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <!-- /.card-body -->
                     </div>
+                    <!-- /.card -->
                 </div>
-                <!-- ./col -->
-                <div class="col-lg-4 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <h3>44</h3>
-                            <p>User Registrations</p>
-                            <ul>
-                                <li>Lorem ipsum dolor sit amet</li>
-                                <li>Consectetur adipiscing elit</li>
-                                <li>Integer molestie lorem at massa</li>
-                                <li>Facilisis in pretium nisl aliquet</li>
-                                <li>Nulla volutpat aliquam velit
-                                    <ul>
-                                        <li>Phasellus iaculis neque</li>
-                                        <li>Purus sodales ultricies</li>
-                                        <li>Vestibulum laoreet porttitor sem</li>
-                                        <li>Ac tristique libero volutpat at</li>
-                                    </ul>
-                                </li>
-                                <li>Faucibus porta lacus fringilla vel</li>
-                                <li>Aenean sit amet erat nunc</li>
-                                <li>Eget porttitor lorem</li>
-                            </ul>
+                <!-- /.col -->
+                <div class="col-md-9">
+                    <div class="card">
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="activity">
+                                    <!-- Post -->
+                                    <div class="post">
+                                        <div class="user-block">
+                                            <h3>
+                          研究介绍                         
+                        </h3>
+                                        </div>
+                                        本课题基于机构对上市公司的调研记录进行超额收益挖掘。2012年底深交所要求上市公司被机构人员调研后，需在两个交易日内将调研记录发布在深交所或公司官网，即“投资者关系活动记录表”。机构愿意付出成本去实地调研，不是简单的关注，此类数据相比分析师研报，时效性高噪音高。
+                                        <br>
+                                        <br> 本研究数据来源：爬取深交所调研原件解析、爬取东方财富网站机构调研信息网页解析，整理为结构化数据存入MongoDB，在数量特征、文本特征（情感分析，自然语言处理）上进行了挖掘。
+                                        <br>
+                                        <br> 最后的结论是： 行业市值中性化后，调研信息依旧有优秀的选股能力；单因子回归测试IC=1.3%， IC_IR=0.233并不高，但分层组合回测单调性明显，最优组合年化收益21.3%，夏普0.668，最大回撤39.5%。 具体报告见：
+                                        <a href="present.pdf" target="_blank">暑期实习答辩PDF</a>
+                                    </div>
+                                    <!-- Post -->
+                                    <div class="post">
+                                        <div class="user-block">
+                                            <h3>
+                          网站介绍                         
+                        </h3>
+                                        </div>
+                                        基于Python Flask框架搭建的简易网站，部署在自购阿里云ECS服务器上，配置不高性能一般，请使用PC端浏览不要使用手机端。由于分辨率的区别可能造成排版错乱，由于主要目的是自用研究、数据可视化，故没有在此方面花大功夫。毕竟人生苦短，别碰前端。情感分析功能因为缺乏资源，是最naive的阶段，仅供参考。
+                                        <br>
+                                        <br> 左侧导航区有四个功能界面：
+                                        <br> “显示原始数据”：查询某只股票或某个申万行业在某段时间发生的调研记录、关键词云图、调研记录主要字段； 情感分析采用简单的情感词典+语义规则，
+                                        <text class="text-success">积极词汇</text>用绿色标注、
+                                        <text class="text-danger">消极词汇</text>用红色标注，便能清楚情感打分的来源。 注每次查询都意味着分词、情感打分，故时间区间长会比较慢。
+                                        <br>
+                                        <br> "数据库类型统计": MongoDB收录的数据统计分析
+                                        <br> "数据库类型统计": MongoDB收录的数据统计分析
+                                        <br> "单因子测试框架"： 下面单独给出介绍
+                                    </div>
+                                    <!-- Post -->
+                                    <div class="post">
+                                        <div class="user-block">
+                                            <h3>
+                          单因子测试框架介绍                         
+                        </h3>
+                                        </div>
+                                        <p>
+                                            股票池选取调研覆盖度较高的600只股票，按照单因子月度测试流程处理因子数据，并考察调研因子与size、pb、换手、动量传统因子的相关度。截面回归测试给出T值、IC序列，参数敏感性分析显示结果稳健。给出每期因子与次月收益的散点图观察结果的合理性
+                                            <br>
+                                            <br> 行业中性分层回测，给出
+                                            <text class="text-primary">每期各组合持仓情况</text>；点击该股票可显示每期股票所在组合。同样给出换手率、组合市值风格、参敏感性分析。
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- /.tab-pane -->
+                                <!-- /.tab-pane -->
+                            </div>
+                            <!-- /.tab-content -->
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-person-add"></i>
-                        </div>
-                        <a href="file:///Users/BurNingS/Desktop/%E5%88%AB%E4%BA%BA%E7%9A%84%E6%A8%A1%E6%9D%BF/cpts_992_bmf.0-alpha%20copy/index.html#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <!-- /.card-body -->
                     </div>
+                    <!-- /.nav-tabs-custom -->
                 </div>
-                <!-- ./col -->
-                <!-- ./col -->
+                <!-- /.col -->
             </div>
             <!-- /.row -->
-            <!-- Main row -->
-            <div class="row">
-                <!-- right col -->
-                <div class="col-lg-4 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3>53<sup style="font-size: 20px">%</sup></h3>
-                            <p>Bounce Rate</p>
-                            <ul>
-                                <li>Lorem ipsum dolor sit amet</li>
-                                <li>Consectetur adipiscing elit</li>
-                                <li>Integer molestie lorem at massa</li>
-                                <li>Facilisis in pretium nisl aliquet</li>
-                                <li>Nulla volutpat aliquam velit
-                                    <ul>
-                                        <li>Phasellus iaculis neque</li>
-                                        <li>Purus sodales ultricies</li>
-                                        <li>Vestibulum laoreet porttitor sem</li>
-                                        <li>Ac tristique libero volutpat at</li>
-                                    </ul>
-                                </li>
-                                <li>Faucibus porta lacus fringilla vel</li>
-                                <li>Aenean sit amet erat nunc</li>
-                                <li>Eget porttitor lorem</li>
-                            </ul>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
-                        </div>
-                        <a href="file:///Users/BurNingS/Desktop/%E5%88%AB%E4%BA%BA%E7%9A%84%E6%A8%A1%E6%9D%BF/cpts_992_bmf.0-alpha%20copy/index.html#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <h3>44</h3>
-                            <p>User Registrations</p>
-                            <ul>
-                                <li>Lorem ipsum dolor sit amet</li>
-                                <li>Consectetur adipiscing elit</li>
-                                <li>Integer molestie lorem at massa</li>
-                                <li>Facilisis in pretium nisl aliquet</li>
-                                <li>Nulla volutpat aliquam velit
-                                    <ul>
-                                        <li>Phasellus iaculis neque</li>
-                                        <li>Purus sodales ultricies</li>
-                                        <li>Vestibulum laoreet porttitor sem</li>
-                                        <li>Ac tristique libero volutpat at</li>
-                                    </ul>
-                                </li>
-                                <li>Faucibus porta lacus fringilla vel</li>
-                                <li>Aenean sit amet erat nunc</li>
-                                <li>Eget porttitor lorem</li>
-                            </ul>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-person-add"></i>
-                        </div>
-                        <a href="file:///Users/BurNingS/Desktop/%E5%88%AB%E4%BA%BA%E7%9A%84%E6%A8%A1%E6%9D%BF/cpts_992_bmf.0-alpha%20copy/index.html#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>150</h3>
-                            <p>New Orders</p>
-                            <ul>
-                                <li>Lorem ipsum dolor sit amet</li>
-                                <li>Consectetur adipiscing elit</li>
-                                <li>Integer molestie lorem at massa</li>
-                                <li>Facilisis in pretium nisl aliquet</li>
-                                <li>Nulla volutpat aliquam velit
-                                    <ul>
-                                        <li>Phasellus iaculis neque</li>
-                                        <li>Purus sodales ultricies</li>
-                                        <li>Vestibulum laoreet porttitor sem</li>
-                                        <li>Ac tristique libero volutpat at</li>
-                                    </ul>
-                                </li>
-                                <li>Faucibus porta lacus fringilla vel</li>
-                                <li>Aenean sit amet erat nunc</li>
-                                <li>Eget porttitor lorem</li>
-                            </ul>
-                            <p></p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-bag"></i>
-                        </div>
-                        <a href="file:///Users/BurNingS/Desktop/%E5%88%AB%E4%BA%BA%E7%9A%84%E6%A8%A1%E6%9D%BF/cpts_992_bmf.0-alpha%20copy/index.html#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <!-- /.row (main row) -->
         </div>
         <!-- /.container-fluid -->
     </section>

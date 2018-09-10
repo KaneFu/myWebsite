@@ -111,13 +111,8 @@ tfidf_model =  TfidfModel.load(material_path+'after2015_tfidf')
     
 
 
-
 @app.route('/', methods=['GET','POST'])
 def index():
-    return render_template('welcome_page.html',ipv4=IPV4)
-
-@app.route('/outline', methods=['GET','POST'])
-def outline():
     return render_template('outline.html')
 
 
