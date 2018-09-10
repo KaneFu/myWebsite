@@ -172,7 +172,7 @@ def db_type_summary():
     html = 'myhtml/各调研类别信息详解2013.html'
     soup = BeautifulSoup(open(html,'r',encoding='utf-8'), 'html.parser')
     mychart = str(soup.body)
-    return render_template('type_summary.html', mychart=mychart)
+    return render_template('type_summary.html', mychart=mychart, ipv4=IPV4)
 
 @app.route('/sent_demo', methods=['GET','POST'])
 def sent_demo():
