@@ -114,7 +114,7 @@ tfidf_model =  TfidfModel.load(material_path+'after2015_tfidf')
 
 @app.route('/', methods=['GET','POST'])
 def index():
-    return render_template('welcome_page.html',IPV4=IPV4)
+    return render_template('welcome_page.html',ipv4=IPV4)
 
 @app.route('/outline', methods=['GET','POST'])
 def outline():
@@ -165,7 +165,7 @@ def original_docs():
         wordcloud.add("",words,weights)
         wordcloud = wordcloud.render_embed()
 
-    return render_template('queryDb.html', form=form,docs=docs,wordcloud=wordcloud,IPV4=IPV4)
+    return render_template('queryDb.html', form=form,docs=docs,wordcloud=wordcloud,ipv4=IPV4)
 
 @app.route('/db_type_summary', methods=['GET','POST'])
 def db_type_summary():
@@ -176,7 +176,7 @@ def db_type_summary():
 
 @app.route('/sent_demo', methods=['GET','POST'])
 def sent_demo():
-    return render_template('sent_demo.html',IPV4=IPV4)
+    return render_template('sent_demo.html',ipv4=IPV4)
 
 @app.route('/sent_demo_query', methods=['GET','POST'])
 def sent_demo_query():
@@ -195,7 +195,7 @@ def get_scatter():
 
 @app.route('/single_factor_backtest', methods=['GET','POST'])
 def single_factor_backtest():
-    return render_template('single_factor_backtest.html',IPV4=IPV4)
+    return render_template('single_factor_backtest.html',ipv4=IPV4)
 
 @app.route('/generate_factor', methods=['GET','POST'])
 def generate_factor():
