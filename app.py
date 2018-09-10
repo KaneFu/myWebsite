@@ -115,6 +115,10 @@ tfidf_model =  TfidfModel.load(material_path+'after2015_tfidf')
 def index():
     return render_template('outline.html')
 
+@app.route('/outline', methods=['GET','POST'])
+def outline():
+    return render_template('outline.html')
+
 
 @app.route('/original_docs', methods=['GET','POST'])
 def original_docs():
