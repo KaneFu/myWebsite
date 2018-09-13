@@ -37,14 +37,14 @@
                             </div>
                         </div>
                         <div id="select_stks">
-                            <div class="card-body" style="width: 600px;height:400px;">
+                            <div class="card-body" style="width: auto;height:500px;">
                                 <div class="form-group">
                                     <label>股票池数量</label>
-                                    <input type="text" id="stock_num_slider" name="example_name" value="" style="width:600px" />
+                                    <input type="text" id="stock_num_slider" name="example_name" value="" style="width:auto" />
                                 </div>
                                 <div class="form-group">
                                     <label>时间段选取</label>
-                                    <input type="text" id="time_range_slider" name="time_range_slider" value="" style="width:600px" />
+                                    <input type="text" id="time_range_slider" name="time_range_slider" value="" style="width:auto" />
                                 </div>
                                 <!-- 选择数量因子类别 -->
                                 <div class="form-group">
@@ -95,7 +95,7 @@
                                     </label>
                                     <span>                                        <button id="generate_factor" type="submit" class="btn btn-info">生成因子</button> </span>
                                     <p>
-                                        <div class="form-group" style="width: 200px;">
+                                        <div class="form-group" style="width: auto;">
                                             <label>调研人次截断阈值</label>
                                             <input type="text" id="partLen_thd" class="form-control" style="width: 50px; display: inline" value="10">
                                         </div>
@@ -112,20 +112,20 @@
                                 <h3 class="card-title">预处理参数设置</h3>
                             </div>
                         </div>
-                        <div class="card-body" style="width: 400px;height:400px;">
-                            <div class="col-6">
-                                衰减： 衰减窗口
+                        <div class="card-body" style="width: auto;height:500px;">
+                            <div class="col-12">
+                                衰减窗口
                                 <input type="text" id="decay_window" class="form-control" value="12">
                             </div>
-                            <div class="col-6">
+                            <div class="col-12">
                                 半衰期
                                 <input type="text" id="decay_factor" class="form-control" value="2">
                             </div>
-                            <div class="col-6">
+                            <div class="col-12">
                                 时序标准化窗口
                                 <input type="text" id="time_std_window" class="form-control" value="12">
                             </div>
-                            <div class="col-6">
+                            <div class="col-12">
                                 公告延迟天数
                                 <input type="text" id="delay_len" class="form-control" value="2">
                             </div>
@@ -139,7 +139,7 @@
                                 </label>
                             </div>
                             <label>
-                                <input type="checkbox" name="pure_factor" value="pure_factor"> 是否进行纯因子分层
+                                <input type="checkbox" name="pure_factor" value="pure_factor"> 进行纯因子分层
                             </label>
                             <p>
                                 <button id="process" type="submit" class="btn btn-info">处理因子</button>
@@ -156,8 +156,8 @@
                                 <h3 class="card-title">行业分布图</h3>
                             </div>
                         </div>
-                        <div class="card-body" style="width: 420px;height:400px;">
-                            <div id="industry_dist" style="width: 400px;height:400px;"></div>
+                        <div class="card-body" style="width: auto;height:500px;">
+                            <div id="industry_dist" style="width: auto;height:auto;"></div>
                         </div>
                     </div>
                 </div>
@@ -168,8 +168,8 @@
                                 <h3 class="card-title">中证500行业分布</h3>
                             </div>
                         </div>
-                        <div class="card-body" style="width: 420px;height:400px;">
-                            <div id="zz500_dist" style="width: 400px;height:400px;"></div>
+                        <div class="card-body" style="width: auto;height:500px;">
+                            <div id="zz500_dist" style="width: auto;height:auto;"></div>
                         </div>
                     </div>
                 </div>
@@ -192,16 +192,16 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     市值分布
-                                    <div id="mktcap_dist" style="width: 550px;height:450px;"></div>
+                                    <div id="mktcap_dist" style="width: auto;height:450px;"></div>
                                 </div>
                                 <div class="col-md-4">
                                     各类因子间相关度
-                                    <div id="factor_corr" style="width: 550px;height:450px;">
+                                    <div id="factor_corr" style="width: auto;height:450px;">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     原始因子覆盖度
-                                    <div id="factor_cover" style="width: 550px;height:450px;">
+                                    <div id="factor_cover" style="width: auto;height:450px;">
                                     </div>
                                 </div>
                             </div>
@@ -219,7 +219,7 @@
                             </div>
                         </div>
                         <div class="card-body" style="height:500px;">
-                            <div id="IC_series" style="width: 1200px; height:420px;">
+                            <div id="IC_series" style="width: auto; height:420px;">
                             </div>
                         </div>
                     </div>
@@ -256,22 +256,22 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     因子覆盖度
-                                    <div id="factor_cover_after" style="width: 400px;height:400px;">
+                                    <div id="factor_cover_after" style="width: auto;height:400px;">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     截面自相关
-                                    <div id="cross_corr" style="width: 400px;height:400px;">
+                                    <div id="cross_corr" style="width: auto;height:400px;">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     IC分布
-                                    <div id="IC_dist" style="width: 400px;height:400px;">
+                                    <div id="IC_dist" style="width: auto;height:400px;">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     IC衰减
-                                    <div id="IC_decay" style="width: 400px;height:400px;">
+                                    <div id="IC_decay" style="width: auto;height:400px;">
                                     </div>
                                 </div>
                             </div>
@@ -279,22 +279,22 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     调研人次截断敏感性分析
-                                    <div id="partLen_rsns" style="width: 400px;height:400px;">
+                                    <div id="partLen_rsns" style="width: auto;height:400px;">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     衰减敏感性分析
-                                    <div id="decayLen_rsns" style="width: 400px;height:400px;">
+                                    <div id="decayLen_rsns" style="width: auto;height:400px;">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     公告延迟天数敏感性分析
-                                    <div id="delayLen_rsns" style="width: 400px;height:400px;">
+                                    <div id="delayLen_rsns" style="width: auto;height:400px;">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     股票池数量敏感性分析
-                                    <div id="stk_pool_rsns" style="width: 400px;height:400px;">
+                                    <div id="stk_pool_rsns" style="width: auto;height:400px;">
                                     </div>
                                 </div>
                             </div>
@@ -315,7 +315,7 @@
                             </div>
                         </div>
                         <div class="card-body" style="width: 2000px;height:2200px;">
-                            <div id="factor_distribution" style="width: 1800px;height:2000px;"></div>
+                            <div id="factor_distribution" style="width: auto;height:2000px;"></div>
                         </div>
                     </div>
                 </div>
@@ -335,17 +335,17 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-8">
-                                    <div id="backtest_netvalue" style="width: 1000px;height:500px;">
+                                    <div id="backtest_netvalue" style="width: auto;height:500px;">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div id="backtest_summary_draw" style="width: 500px;height:500px;">
+                                    <div id="backtest_summary_draw" style="width: auto;height:500px;">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div id="backtest_summary" style="width: 1600px;"></div>
+                                    <div id="backtest_summary" style="width: auto;"></div>
                                 </div>
                             </div>
                         </div>
@@ -366,10 +366,10 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div id="turnover_info" style="width: 800px;height:400px;"> </div>
+                                    <div id="turnover_info" style="width: auto;height:400px;"> </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div id="mktcap_info" style="width: 800px;height:400px;"> </div>
+                                    <div id="mktcap_info" style="width: auto;height:400px;"> </div>
                                 </div>
                             </div>
                             <div id="position_holding"> </div>
@@ -392,24 +392,24 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     调研人次截断敏感性分析
-                                    <div id="partLen_bsns" style="width: 800px;height:400px;">
+                                    <div id="partLen_bsns" style="width: auto;height:400px;">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     衰减敏感性分析
-                                    <div id="decayLen_bsns" style="width: 800px;height:400px;">
+                                    <div id="decayLen_bsns" style="width: auto;height:400px;">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     公告延迟天数敏感性分析
-                                    <div id="delayLen_bsns" style="width: 800px;height:400px;">
+                                    <div id="delayLen_bsns" style="width: auto;height:400px;">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     股票池数量敏感性分析
-                                    <div id="stk_pool_bsns" style="width: 800px;height:400px;">
+                                    <div id="stk_pool_bsns" style="width: auto;height:400px;">
                                     </div>
                                 </div>
                             </div>
