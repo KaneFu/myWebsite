@@ -6,13 +6,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>项目介绍</h1>
+                    <h1>Website Introduction</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="http://120.79.242.98:5000/english_outline">English Version</a></li>
-                        <li class="breadcrumb-item"><a href="http://120.79.242.98:5000/single_factor_backtest">单因子测试框架</a></li>
-                        <li class="breadcrumb-item"><a href="http://120.79.242.98:5000/original_docs">数据库查询</a></li>
+                        <li class="breadcrumb-item"><a href="http://120.79.242.98:5000/single_factor_backtest">Backtest Framework</a></li>
+                        <li class="breadcrumb-item"><a href="http://120.79.242.98:5000/original_docs">Database Query</a></li>
                     </ol>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             <strong><i class="fa fa-book mr-1"></i> Education</strong>
-                            <p class="text-muted">清华大学物理系基科班 理学学士 清华大学经管学院 金融硕士</p>
+                            <p class="text-muted">Bachelor of Science, Department of Physics, Tsinghua University; Master of Finance, School of Economics and Management, Tsinghua University</p>
                             <hr>
                             <strong><i class="fa fa-map-marker mr-1"></i> Location</strong>
                             <p class="text-muted">Beijing, Shenzhen</p>
@@ -55,7 +55,8 @@
                             </p>
                             <hr>
                             <strong><i class="fa fa-file-text-o mr-1"></i> Notes</strong>
-                            <p class="text-muted">本网站是暑期实习时独立完成的项目,框架为Python+Flask+MongoDB+ jQuery+Jinja2, 部署于自购低配置阿里云服务器
+                            <p class="text-muted">
+                                This website is deployed on Ali cloud server, the framework is Python+Flask+MongoDB+ jQuery+Jinja2
                             </p>
                         </div>
                         <!-- /.card-body -->
@@ -73,48 +74,46 @@
                                     <div class="post">
                                         <div class="user-block">
                                             <h3>
-                          研究介绍                         
+                          Research Introduction                         
                         </h3>
                                         </div>
-                                        本课题基于机构对上市公司的调研记录进行超额收益挖掘。2012年底深交所要求上市公司被机构人员调研后，需在两个交易日内将调研记录发布在深交所或公司官网，即“投资者关系活动记录表”。机构愿意付出成本去实地调研，不是简单的关注，此类数据相比分析师研报，时效性高噪音高。
+                                        This project aims to discover alpha based on numerical feature and textual feature of insititutional research records. Listed Shenzhen A-share companys are obliged to disclose research records after been investigated by institutional investors. This information enjoys higher timeliness than analysts' attention but also higher noise.
                                         <br>
-                                        <br> 本研究数据来源：爬取深交所调研原件解析、爬取东方财富网站机构调研信息网页解析，整理为结构化数据存入MongoDB，在数量特征、文本特征（情感分析，自然语言处理）上进行了挖掘。
+                                        <br> Data Source：Crawling 40k+ original Word PDF documents from SZSE official websites, 60k+ pages from EastMoney, parsing into json files and storage in MongoDB.
                                         <br>
-                                        <br> 最后的结论是： 行业市值中性化后，调研信息依旧有优秀的选股能力；单因子回归测试IC=1.3%， IC_IR=0.233并不高，但分层组合回测单调性明显，最优组合年化收益21.3%，夏普0.668，最大回撤39.5%。 具体报告见：
-                                        <a href="{{ url_for('static',filename='present.pdf') }}" target="_blank">课题汇报PDF</a>
+                                        <br> Conclusion： the market neutral factor testing and portfolio backtesting shows that institutional research records do have significant alpha. Regression implicates a robust positive information coefficient of 1.3%, information ratio of RankIC is 0.233. Portfolio backtesting result shows strict monotony with best performance of anual return 21.3%, sharpe ratio 0.668, max drawdown 39.5%. The details of present materials:
+                                        <a href="{{ url_for('static',filename='present.pdf') }}" target="_blank">PDF</a>
                                     </div>
                                     <!-- Post -->
                                     <div class="post">
                                         <div class="user-block">
                                             <h3>
-                          网站介绍                         
+                          Website Introduction                         
                         </h3>
                                         </div>
-                                        基于Python Flask框架搭建的简易网站，部署在自购阿里云ECS服务器上，配置不高性能一般，
-                                        <text class="text-danger">请使用PC端浏览不要使用手机端</text>。由于分辨率的区别可能造成排版错乱，由于主要目的是自用研究、数据可视化，故没有在此方面花大功夫。毕竟人生苦短，别碰前端。情感分析功能因为缺乏资源，是最naive的阶段，仅供参考。
+                                        This website uses Python Flask as back-end and is deployed on a self-purchased low-configuration Ali-cloud ECS server. The speed may not be fast.
+                                        <text class="text-danger">Please browse in PC instead of phones </text>。The layouts may be disordered beacause of different screen resolution. This project is mainly designed for own research, so the displays are not optimized.
                                         <br>
-                                        <br> 左侧导航区有四个功能界面：
-                                        <br> “显示原始数据”：查询某只股票或某个申万行业在某段时间发生的调研记录、关键词云图、调研记录主要字段； 情感分析采用简单的情感词典+语义规则，
-                                        <text class="text-success">积极词汇</text>用绿色标注、
-                                        <text class="text-danger">消极词汇</text>用红色标注，便能清楚情感打分的来源。 注每次查询都意味着分词、情感打分，故时间区间长会比较慢。
-                                        <br>
-                                        <br> "数据库类型统计": MongoDB收录的数据统计分析
-                                        <br> "单因子测试框架"： 下面单独给出介绍
-                                        <br> "情感打分示例": 特别简单的算法与demo
+                                        <br> The navigation bar on the left contains four panels：
+                                        <br> "Database Query"：get reasearch records of a specific stock or an industry during specific period. The result contains keywords extraction, main fields of documents, chinese sentence segmentation and sentiment scores.
+                                        <text class="text-success">Positive words</text>are highlighted in green,
+                                        <text class="text-danger">negative words</text>are highlighted in red. Each query a sentence segmentation and sentiment grading will be conducted, so a long period means slow response.
+                                        <br> "Database Summary": a detailed summary of database.
+                                        <br> "Backtest Framework": the main module of this project, specific intro is presented below.
+                                        <br> "Sentiment Grading Demo": a super simple algorithm and example.
                                     </div>
                                     <!-- Post -->
                                     <div class="post">
                                         <div class="user-block">
                                             <h3>
-                          单因子测试框架介绍                         
+                          Backtest Framework Introduction                         
                         </h3>
                                         </div>
                                         <p>
-                                            股票池选取调研覆盖度较高的600只股票，按照单因子月度测试流程处理因子数据，并考察调研因子与size、pb、换手、动量传统因子的相关度。截面回归测试给出T值、IC序列，参数敏感性分析显示结果稳健。给出每期因子与次月收益的散点图观察结果的合理性。 容器可能因为分辨率问题较小，
-                                            <text class="text-primary">可适度缩放浏览器界面</text>。
+                                            Stock pool size can be customized, I choose top 600 stocks with highest coverage rate of research records. The factor data standardizing process follows barra framework, explore its correlation with traditional factors like size, pb, turnover rate, momentum. Cross-section regression gives T-value serires and IC series, parameter sensitive analysis gives robust results.
+                                            <text class="text-primary">You can zoom the browser to obtain optimal layouts</text>。
                                             <br>
-                                            <br> 行业中性分层回测，给出 每期各组合持仓情况
-                                            </text>；点击该股票可显示每期股票所在组合。同样给出换手率、组合市值风格、参敏感性分析。
+                                            <br> The backtest module gives position profile of each portfolio , click on any stock will show its belonging portfolio during each period. The turnover rate of each portfolio and its size exposure each period are also presented.
                                         </p>
                                     </div>
                                 </div>

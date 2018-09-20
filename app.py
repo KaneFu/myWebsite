@@ -120,6 +120,10 @@ def outline():
     return render_template('outline.html')
 
 
+@app.route('/english_outline', methods=['GET','POST'])
+def english_outline():
+    return render_template('outline_eng.html')
+
 @app.route('/original_docs', methods=['GET','POST'])
 def original_docs():
     form = NameForm()
