@@ -32,7 +32,7 @@ docutils==0.13.1
 dukpy==0.2.0
 Flask==0.12.2
 Flask-Bootstrap==3.3.7.1
-Flask-Cors==3.0.2
+Flask-Cors==3.0.9
 Flask-WTF==0.14.2
 future==0.16.0
 gensim==3.5.0
