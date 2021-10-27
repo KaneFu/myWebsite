@@ -27,7 +27,7 @@ cryptography==1.8.1
 cycler==0.10.0
 Cython==0.25.2
 cytoolz==0.8.2
-dask==0.14.3
+dask==2021.10.0
 docutils==0.13.1
 dukpy==0.2.0
 Flask==0.12.2
